@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -13,6 +15,37 @@ class _AuthFormState extends State<AuthForm> {
   var _password = ' ';
   var _username = ' ';
   bool isLoginPage = false;
+
+  startAuthentication() {
+    final validity = _formkey.currentState!.validate();
+
+    if (validity) {
+      _formkey.currentState!.save();
+      submitForm(_email, _password, _username);
+    }
+  }
+
+  submitForm(String email, String password, String username) async {
+    final auth = FirebaseAuth.instance;
+    UserCredential userCredential;
+
+    try {
+      if (isLoginPage) {
+        userCredential = await auth.signInWithEmailAndPassword(
+            email: email, password: password);
+      } else {
+        userCredential = await auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        String uid = userCredential.user!.uid;
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .set({'username': username, 'email': email});
+      }
+    } catch (err) {
+      print(err);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +149,14 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                   Container(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          isLoginPage = !isLoginPage;
+                        });
+                      },
                       child: isLoginPage
-                          ? const Text('Not a member')
-                          : const Text('Already a member'),
+                          ? const Text('Not a member?')
+                          : const Text('Already a member?'),
                     ),
                   ),
                 ],
