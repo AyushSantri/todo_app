@@ -99,11 +99,13 @@ class _AuthFormState extends State<AuthForm> {
                     height: 10,
                   ),
                   Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       width: double.infinity,
                       height: 70,
                       child: RaisedButton(
-                          child: isLoginPage ? Text('Login') : Text('SignUp'),
+                          child: isLoginPage
+                              ? const Text('Login')
+                              : const Text('SignUp'),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
