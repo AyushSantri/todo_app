@@ -110,7 +110,18 @@ class _AuthFormState extends State<AuthForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           color: Theme.of(context).primaryColor,
-                          onPressed: () {}))
+                          onPressed: () {})),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    child: TextButton(
+                      onPressed: () {},
+                      child: isLoginPage
+                          ? const Text('Not a member')
+                          : const Text('Already a member'),
+                    ),
+                  ),
                 ],
               ),
             ),
