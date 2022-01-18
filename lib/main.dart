@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/auth/authscreen.dart';
 import 'package:todo_app/screens/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -14,13 +16,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FutureBuilder(
-        future: Firebase.initializeApp(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.userChanges(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData)
+          if (snapshot.hasData) {
             return Home();
-          else
+          } else {
+            print(snapshot.hasData);
             return AuthScreen();
+          }
         },
       ),
       debugShowCheckedModeBanner: false,
