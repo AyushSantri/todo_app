@@ -9,6 +9,9 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
