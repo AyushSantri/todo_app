@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +14,24 @@ class AddTask extends StatefulWidget {
 class _AddTaskState extends State<AddTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+  addTaskToFirebase() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser!;
+    String uid = user.uid;
+    var time = DateTime.now();
+
+    await FirebaseFirestore.instance
+        .collection('tasks')
+        .doc(uid)
+        .collection('mytask')
+        .doc(time.toString())
+        .set({
+      'title': titleController.text,
+      'description': descriptionController.text,
+      'time': time.toString(),
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +63,9 @@ class _AddTaskState extends State<AddTask> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  addTaskToFirebase();
+                },
                 child: Text(
                   'Add task',
                   style: GoogleFonts.roboto(fontSize: 18),
