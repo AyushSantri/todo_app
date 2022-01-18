@@ -22,15 +22,17 @@ class _AddTaskState extends State<AddTask> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(), labelText: 'Enter title'),
+            TextField(
+              controller: titleController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Enter title'),
             ),
             const SizedBox(
               height: 10,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: descriptionController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'Enter description'),
             ),
             const SizedBox(
