@@ -33,6 +33,8 @@ class _AddTaskState extends State<AddTask> {
       'time': time.toString(),
     });
     Fluttertoast.showToast(msg: 'Data Added');
+    titleController.clear();
+    descriptionController.clear();
   }
 
   @override
