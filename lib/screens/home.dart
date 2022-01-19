@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/screens/add_task.dart';
 
 class Home extends StatefulWidget {
@@ -53,7 +54,8 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: SizedBox(
+      body: Container(
+        padding: const EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: StreamBuilder(
@@ -71,20 +73,32 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: docs.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Text(
-                          docs[index]['title'],
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          docs[index]['description'],
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        )
-                      ],
+                    return Container(
+                      height: 90,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff121211),
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      docs[index]['title'],
+                                      style: GoogleFonts.roboto(fontSize: 18),
+                                    ),
+                                    margin: const EdgeInsets.only(left: 20),
+                                  ),
+                                ]),
+                            Container(
+                                child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.delete))),
+                          ]),
                     );
                   });
             }
