@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/add_task.dart';
@@ -52,19 +53,53 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('tasks')
+              .doc(uid)
+              .collection('mytask')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              final docs = snapshot.data!.docs;
+              return ListView.builder(
+                  itemCount: docs.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Text(
+                          docs[index]['title'],
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          docs[index]['description'],
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    );
+                  });
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black,
         child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddTask()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddTask()));
         },
       ),
     );
