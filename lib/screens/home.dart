@@ -10,6 +10,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String uid = "";
+
+  @override
+  void initState() {
+    getuid();
+    super.initState();
+  }
+
+  getuid() {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final user = firebaseAuth.currentUser;
+    uid = user!.uid;
+    print(uid);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +55,6 @@ class _HomeState extends State<Home> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: Colors.red,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black45,
