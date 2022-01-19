@@ -96,7 +96,14 @@ class _HomeState extends State<Home> {
                                 ]),
                             Container(
                                 child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      await FirebaseFirestore.instance
+                                          .collection('tasks')
+                                          .doc(uid)
+                                          .collection('mytask')
+                                          .doc(docs[index]['time'])
+                                          .delete();
+                                    },
                                     icon: Icon(Icons.delete))),
                           ]),
                     );
