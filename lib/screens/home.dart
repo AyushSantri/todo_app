@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/screens/add_task.dart';
+import 'package:todo_app/screens/description.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -77,7 +78,15 @@ class _HomeState extends State<Home> {
                     DateTime time =
                         (docs[index]['timeStamp'] as Timestamp).toDate();
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Description(
+                                      title: docs[index]['title'],
+                                      description: docs[index]['description'],
+                                    )));
+                      },
                       splashColor: Colors.transparent,
                       child: Container(
                         height: 90,

@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Description extends StatefulWidget {
-  const Description({Key? key}) : super(key: key);
-
-  @override
-  _DescriptionState createState() => _DescriptionState();
-}
-
-class _DescriptionState extends State<Description> {
+class Description extends StatelessWidget {
+  const Description({Key? key, required this.title, required this.description})
+      : super(key: key);
   final String title, description;
-
-  _DescriptionState(this.title, this.description);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,5 +17,6 @@ class _DescriptionState extends State<Description> {
         ],
       ),
     );
+    ;
   }
 }
