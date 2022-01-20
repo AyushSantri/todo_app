@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Description extends StatelessWidget {
   const Description({Key? key, required this.title, required this.description})
@@ -11,9 +14,21 @@ class Description extends StatelessWidget {
         title: const Text('Description'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title),
-          Text(description),
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: Text(
+                title,
+                style: GoogleFonts.roboto(
+                    fontSize: 24, fontWeight: FontWeight.bold),
+              )),
+          Container(
+              margin: const EdgeInsets.all(10),
+              child: Text(
+                description,
+                style: GoogleFonts.roboto(fontSize: 18),
+              )),
         ],
       ),
     );
