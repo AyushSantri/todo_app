@@ -94,17 +94,16 @@ class _HomeState extends State<Home> {
                                     margin: const EdgeInsets.only(left: 20),
                                   ),
                                 ]),
-                            Container(
-                                child: IconButton(
-                                    onPressed: () async {
-                                      await FirebaseFirestore.instance
-                                          .collection('tasks')
-                                          .doc(uid)
-                                          .collection('mytask')
-                                          .doc(docs[index]['time'])
-                                          .delete();
-                                    },
-                                    icon: Icon(Icons.delete))),
+                            IconButton(
+                                onPressed: () async {
+                                  await FirebaseFirestore.instance
+                                      .collection('tasks')
+                                      .doc(uid)
+                                      .collection('mytask')
+                                      .doc(docs[index]['time'])
+                                      .delete();
+                                },
+                                icon: const Icon(Icons.delete)),
                           ]),
                     );
                   });
