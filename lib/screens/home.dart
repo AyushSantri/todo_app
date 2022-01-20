@@ -76,45 +76,49 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, index) {
                     DateTime time =
                         (docs[index]['timeStamp'] as Timestamp).toDate();
-                    return Container(
-                      height: 90,
-                      decoration: BoxDecoration(
-                          color: const Color(0xff121211),
-                          borderRadius: BorderRadius.circular(10)),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      docs[index]['title'],
-                                      style: GoogleFonts.roboto(fontSize: 18),
+                    return InkWell(
+                      onTap: () {},
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        height: 90,
+                        decoration: BoxDecoration(
+                            color: const Color(0xff121211),
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        docs[index]['title'],
+                                        style: GoogleFonts.roboto(fontSize: 18),
+                                      ),
+                                      margin: const EdgeInsets.only(left: 20),
                                     ),
-                                    margin: const EdgeInsets.only(left: 20),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 20),
-                                    child: Text(DateFormat()
-                                        .add_yMd()
-                                        .add_jm()
-                                        .format(time)),
-                                  ),
-                                ]),
-                            IconButton(
-                                onPressed: () async {
-                                  await FirebaseFirestore.instance
-                                      .collection('tasks')
-                                      .doc(uid)
-                                      .collection('mytask')
-                                      .doc(docs[index]['time'])
-                                      .delete();
-                                },
-                                icon: const Icon(Icons.delete)),
-                          ]),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 20),
+                                      child: Text(DateFormat()
+                                          .add_yMd()
+                                          .add_jm()
+                                          .format(time)),
+                                    ),
+                                  ]),
+                              IconButton(
+                                  onPressed: () async {
+                                    await FirebaseFirestore.instance
+                                        .collection('tasks')
+                                        .doc(uid)
+                                        .collection('mytask')
+                                        .doc(docs[index]['time'])
+                                        .delete();
+                                  },
+                                  icon: const Icon(Icons.delete)),
+                            ]),
+                      ),
                     );
                   });
             }
