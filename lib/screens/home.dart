@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/screens/add_task.dart';
 
 class Home extends StatefulWidget {
@@ -73,6 +74,8 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: docs.length,
                   itemBuilder: (context, index) {
+                    DateTime time =
+                        (docs[index]['timeStamp'] as Timestamp).toDate();
                     return Container(
                       height: 90,
                       decoration: BoxDecoration(
@@ -92,6 +95,13 @@ class _HomeState extends State<Home> {
                                       style: GoogleFonts.roboto(fontSize: 18),
                                     ),
                                     margin: const EdgeInsets.only(left: 20),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 20),
+                                    child: Text(DateFormat()
+                                        .add_yMd()
+                                        .add_jm()
+                                        .format(time)),
                                   ),
                                 ]),
                             IconButton(
